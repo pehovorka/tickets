@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{csrf_token()}}">
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <title>{{config('app.name', 'KupVstup')}}</title>
+        <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
         @yield('head') 
     </head>
     <body>

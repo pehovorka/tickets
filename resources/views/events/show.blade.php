@@ -14,5 +14,16 @@
     </p>
     <a href="/events/" role="button" class="btn btn-outline-secondary">Zpět na seznam akcí</a>
     <a href="/events/{{$event->id}}/edit" role="button" class="btn btn-default">Upravit akci</a>
-    <a href="/events/{{$event->id}}/delete" role="button" class="btn btn-default">Smazat akci</a>
+
+    {!!Form::open(['EventsController@destroy', $event->id, 'method' => 'POST', 'class' => 'float-right delete'])!!}
+        {{Form::hidden('_method','DELETE')}}
+        {{Form::submit('Smazat akci', ['class'=>'btn btn-danger'])}}
+    {!!Form::close() !!}
+
+
+    <script>
+        $(".delete").on("submit", function(){
+            return confirm("Opravdu chcete tuto akci odstranit??");
+        });
+    </script>
 @endsection

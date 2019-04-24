@@ -48,6 +48,7 @@ class EventsController extends Controller
         $event->description = $request->input('description');
         $event->date_from = $request->input('date_from');
         $event->date_to = $request->input('date_to');
+        $event->img = '';
         $event->save();
 
         return redirect('/events')->with('success', 'Akce byla úspěšně přidána!');
@@ -73,7 +74,8 @@ class EventsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $event = Event::find($id);
+        return view('events.edit')->with('event',$event);
     }
 
     /**
@@ -85,7 +87,22 @@ class EventsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'date_from' => 'required|date_format:Y-m-d',
+            'date_to' => 'required|date_format:Y-m-d',
+        ]);
+
+        $event = Event::find($id);
+        $event->name = $request->input('name');
+        $event->description = $request->input('description');
+        $event->date_from = $request->input('date_from');
+        $event->date_to = $request->input('date_to');
+        $event->save();
+
+        return redirect('/events')->with('success', 'Akce byla úspěšně upravena!');
+    
     }
 
     /**
@@ -96,6 +113,8 @@ class EventsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $event = Event::find($id);
+        $event->delete();
+        return redirect('/events')->with('success', 'Akce byla odstraněna!');
     }
 }
