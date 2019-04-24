@@ -37,10 +37,10 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|max:80',
             'description' => 'required',
-            'date_from' => 'required|date_format:Y-m-d',
-            'date_to' => 'required|date_format:Y-m-d',
+            'date_from' => 'required|date_format:Y-m-d|after:yesterday',
+            'date_to' => 'required|date_format:Y-m-d|after_or_equal:date_from'
         ]);
 
         $event = new Event;
@@ -88,10 +88,10 @@ class EventsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|max:60',
             'description' => 'required',
-            'date_from' => 'required|date_format:Y-m-d',
-            'date_to' => 'required|date_format:Y-m-d',
+            'date_from' => 'required|date_format:Y-m-d|after:yesterday',
+            'date_to' => 'required|date_format:Y-m-d|after_or_equal:date_from'
         ]);
 
         $event = Event::find($id);

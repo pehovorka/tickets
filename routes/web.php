@@ -18,3 +18,7 @@ Route::get('/about', 'PagesController@about');
 
 Route::resource('events','EventsController');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -1,0 +1,15 @@
+{
+    "name": "jméno",
+    "Name": "Jméno",
+    "password": "heslo",
+    "Password": "Heslo",
+    "Reset Password": "Obnovení hesla",
+    "Send Password Reset Link": "Poslat odkaz pro obnovení hesla",
+    "Confirm Password": "Potvrdit heslo",
+    "Login": "Přihlášení",
+    "Register": "Registrace",
+    "Register now": "Zaregistrovat",
+    "Remember Me": "Zapamatovat si mě",
+    "Forgot Your Password?": "Zapomenuté heslo?",
+    "E-Mail Address": "E-mail"
+}

@@ -33,13 +33,13 @@ return [
     'confirmed' => 'The :attribute confirmation does not match.',
     'date' => 'The :attribute is not a valid date.',
     'date_equals' => 'The :attribute must be a date equal to :date.',
-    'date_format' => 'The :attribute does not match the format :format.',
+    'date_format' => 'Položka :attribute obsahuje špatný formát data',
     'different' => 'The :attribute and :other must be different.',
     'digits' => 'The :attribute must be :digits digits.',
     'digits_between' => 'The :attribute must be between :min and :max digits.',
     'dimensions' => 'The :attribute has invalid image dimensions.',
     'distinct' => 'The :attribute field has a duplicate value.',
-    'email' => ':attribute musí být validní emailovou adresou.',
+    'email' => 'Položka :attribute musí být validní emailovou adresou.',
     'exists' => 'The selected :attribute is invalid.',
     'file' => ':attribute musí být soubor.',
     'filled' => 'The :attribute field must have a value.',
@@ -78,7 +78,7 @@ return [
     'max' => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file' => 'The :attribute may not be greater than :max kilobytes.',
-        'string' => 'The :attribute may not be greater than :max characters.',
+        'string' => 'Položka :attribute nemůže být delší než :max znaků.',
         'array' => 'The :attribute may not have more than :max items.',
     ],
     'mimes' => 'The :attribute must be a file of type: :values.',
@@ -142,10 +142,14 @@ return [
         ],
         'date_from' => [
             'required' => 'Musíte vyplnit datum začátku události!',
+            'after' => 'Začátek události musí být nejpozději dnes.',
         ],
         'date_to' => [
             'required' => 'Musíte vyplnit datum konce události!',
+            'after_or_equal' => 'Konec události musí být ve stejný den nebo později, než začátek.',
         ],
+        
+
     ],
 
     /*
@@ -159,6 +163,23 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => 'název',
+        'description' => 'popis',
+        'img' => 'obrázek',
+        'image' => 'obrázek',
+        'price' => 'cena',
+        'user_comment' => 'uživatelský komentář',
+        'quantity' => 'množství',
+        'sell_from' => 'datum začátku prodeje',
+        'sell_to' => 'datum konce prodeje',
+        'street' => 'ulice',
+        'city' => 'město',
+        'zip' => 'PSČ',
+        'country' => 'země',
+        'gps' => 'souřadnice',
+        'first_name' => 'jméno',
+        'last_name' => 'příjmení'
+    ],
 
 ];
