@@ -21,7 +21,10 @@
     @else 
         <p>Žádné akce tady nemáme :(</p>
     @endif
+    
     @auth
+    @if( Auth::user()->hasAnyRole(['administrator','manager']))
         <a href="/events/create" role="button" class="btn btn-primary">Přidat novou akci</a>
+    @endif
     @endauth
 @endsection
