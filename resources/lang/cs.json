@@ -1,6 +1,8 @@
 {
     "name": "jméno",
     "Name": "Jméno",
+    "First Name": "Jméno",
+    "Last Name": "Příjmení",
     "password": "heslo",
     "Password": "Heslo",
     "Reset Password": "Obnovení hesla",
@@ -11,5 +13,7 @@
     "Register now": "Zaregistrovat",
     "Remember Me": "Zapamatovat si mě",
     "Forgot Your Password?": "Zapomenuté heslo?",
-    "E-Mail Address": "E-mail"
+    "E-Mail Address": "E-mail",
+    "Dashboard": "Nástěnka",
+    "Logout": "Odhlásit se"
 }

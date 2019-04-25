@@ -21,5 +21,7 @@
     @else 
         <p>Žádné akce tady nemáme :(</p>
     @endif
-    <a href="/events/create" role="button" class="btn btn-primary">Přidat novou akci</a>
+    @auth
+        <a href="/events/create" role="button" class="btn btn-primary">Přidat novou akci</a>
+    @endauth
 @endsection

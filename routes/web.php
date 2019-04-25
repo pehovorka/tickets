@@ -12,13 +12,7 @@
 */
 
 Route::get('/', 'PagesController@index');
-//Route::get('/events', 'PagesController@events');
 Route::get('/about', 'PagesController@about');
-
-
-Route::resource('events','EventsController');
-
-
+Route::resource('events', 'EventsController');
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
