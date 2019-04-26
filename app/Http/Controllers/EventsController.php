@@ -35,7 +35,7 @@ class EventsController extends Controller
      */
     public function create(Request $request)
     {
-        $request->user()->authorizeRoles(['admin', 'manager']);
+        $request->user()->authorizeRoles(['administrator', 'manager']);
         return view('events.create');
     }
 
@@ -47,7 +47,7 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->user()->authorizeRoles(['admin', 'manager']);
+        $request->user()->authorizeRoles(['administrator', 'manager']);
         $this->validate($request, [
             'name' => 'required|max:80',
             'description' => 'required',
@@ -86,7 +86,7 @@ class EventsController extends Controller
      */
     public function edit($id, Request $request)
     {
-        $request->user()->authorizeRoles(['admin', 'manager']);
+        $request->user()->authorizeRoles(['administrator', 'manager']);
         $event = Event::find($id);
         return view('events.edit')->with('event',$event);
     }
@@ -100,7 +100,7 @@ class EventsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['admin', 'manager']);
+        $request->user()->authorizeRoles(['administrator', 'manager']);
         $this->validate($request, [
             'name' => 'required|max:60',
             'description' => 'required',
@@ -127,7 +127,7 @@ class EventsController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $request->user()->authorizeRoles(['admin', 'manager']);
+        $request->user()->authorizeRoles(['administrator', 'manager']);
         $event = Event::find($id);
         $event->delete();
         return redirect('/events')->with('success', 'Akce byla odstraněna!');
