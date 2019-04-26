@@ -33,8 +33,9 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['admin', 'manager']);
         return view('events.create');
     }
 
@@ -46,6 +47,7 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['admin', 'manager']);
         $this->validate($request, [
             'name' => 'required|max:80',
             'description' => 'required',
@@ -82,8 +84,9 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
+        $request->user()->authorizeRoles(['admin', 'manager']);
         $event = Event::find($id);
         return view('events.edit')->with('event',$event);
     }
@@ -97,10 +100,11 @@ class EventsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->user()->authorizeRoles(['admin', 'manager']);
         $this->validate($request, [
             'name' => 'required|max:60',
             'description' => 'required',
-            'date_from' => 'required|date_format:Y-m-d|after:yesterday',
+            'date_from' => 'required|date_format:Y-m-d',
             'date_to' => 'required|date_format:Y-m-d|after_or_equal:date_from'
         ]);
 
@@ -121,8 +125,9 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        $request->user()->authorizeRoles(['admin', 'manager']);
         $event = Event::find($id);
         $event->delete();
         return redirect('/events')->with('success', 'Akce byla odstraněna!');

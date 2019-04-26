@@ -15,6 +15,7 @@
     <a href="/events/" role="button" class="btn btn-outline-secondary">Zpět na seznam akcí</a>
     
     @auth
+    @if( Auth::user()->hasAnyRole(['administrator','manager']))
     <a href="/events/{{$event->id}}/edit" role="button" class="btn btn-default">Upravit akci</a>
     {!!Form::open(['EventsController@destroy', $event->id, 'method' => 'POST', 'class' => 'float-right delete'])!!}
         {{Form::hidden('_method','DELETE')}}
@@ -27,5 +28,6 @@
             return confirm("Opravdu chcete tuto akci odstranit??");
         });
     </script>
+    @endif
     @endauth
 @endsection
