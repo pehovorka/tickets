@@ -21,11 +21,11 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="form-group col">
+        <div class="form-group col pl-0">
                {{Form::label('date_from', 'Datum od')}}
             {{Form::text('date_from', null, ['class' => 'form-control date', 'id'=>'datepicker']) }}
         </div>
-        <div class="form-group col">
+        <div class="form-group col pr-0">
             {{Form::label('date_to', 'Datum do')}}
             {{Form::text('date_to', null, ['class' => 'form-control date', 'id'=>'datepicker2']) }}
         </div>
@@ -33,28 +33,16 @@
 </div>
 <hr>
 <h2>Místo konání</h2>
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="existing-venue-tab" data-toggle="tab" href="#existing-venue" role="tab"
-            aria-controls="existing-venue" aria-selected="true">Vybrat</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="new-venue-tab" data-toggle="tab" href="#new-venue" role="tab" aria-controls="new-venue"
-            aria-selected="false">Nové</a>
-    </li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-    <div class="tab-pane active" id="existing-venue" role="tabpanel" aria-labelledby="existing-venue-tab">Existující
-    </div>
-    <div class="tab-pane" id="new-venue" role="tabpanel" aria-labelledby="new-venue-tab">Nové</div>
+<div>
+    @include('venues.livesearch')
+    <a class="btn btn-primary" href="/venues/create" target="_blank">Vytvořit nové místo</a>
 </div>
 
 
 {{Form::submit('Odeslat', ['class'=>'btn btn-primary'])}}
 {{ Form::close() }}
+
+
 
 
 

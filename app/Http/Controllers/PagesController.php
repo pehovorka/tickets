@@ -11,10 +11,6 @@ class PagesController extends Controller
         return view ('pages.index');
     }
 
-    public function events(){
-        return view ('pages.events');
-    }
-
     public function about(){
         return view ('pages.about');
     }

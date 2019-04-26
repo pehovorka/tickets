@@ -12,4 +12,11 @@ class Event extends Model
     public $primaryKey = 'id';
     // Timestamps
     public $timestamps = true;   
+
+
+    public function venue()
+    {
+        return $this->belongsTo('App\Venue');
+    }
+
 }
