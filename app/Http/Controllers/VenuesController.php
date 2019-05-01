@@ -60,7 +60,44 @@ class VenuesController extends Controller
 
         $venue->save();
 
-        //return redirect('/events')->with('success', 'Místo konání bylo úspěšně přidáno!');
+        return Redirect::back()->with('success', 'Místo konání bylo úspěšně přidáno!');
+    }
+
+        /**
+     * Store a newly created resource from modal window in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeModal(Request $request)
+    {
+        $request->user()->authorizeRoles(['administrator', 'manager']);
+        $this->validate($request, [
+            'name' => 'required|unique:venues|max:80',
+            'description' => 'required|max:150',
+            'street' => 'required|max:60',
+            'city' => 'required|max:60',
+            'zip' => 'required|digits:5',
+            'country' => 'required|max:60',
+            'lat' => 'required|numeric|between:0.00000001,90.0',
+            'long' => 'required|numeric|between:-180.0,180.0'
+        ]);
+
+        $venue = new Venue;
+        $venue->name = $request->input('name');
+        $venue->description = $request->input('description');
+        $venue->street = $request->input('street');
+        $venue->city = $request->input('city');
+        $venue->zip = $request->input('zip');
+        $venue->country = $request->input('country');
+        $venue->lat = $request->input('lat');
+        $venue->long = $request->input('long');
+
+        $venue->save();
+
+        
+
+        return response ()->json ( $venue );
     }
 
     /**
@@ -128,4 +165,6 @@ class VenuesController extends Controller
       echo $output;
      }
     }
+
+
 }

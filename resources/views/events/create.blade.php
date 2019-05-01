@@ -33,9 +33,16 @@
 </div>
 <hr>
 <h2>Místo konání</h2>
-<div>
-    @include('venues.livesearch')
-    <a class="btn btn-primary" href="/venues/create" target="_blank">Vytvořit nové místo</a>
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-8">
+        @include('venues.livesearch')
+    </div>
+    <div class="col-6 col-md-4">
+        
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#createVenueModal">
+                Neexistuje? Vytvořit nové místo!
+        </button>
+    </div>
 </div>
 
 
@@ -44,7 +51,7 @@
 
 
 
-
+@include('venues.create_modal')
 
 <script>
     var route_prefix = "{{ url(config('lfm.url_prefix', config('lfm.prefix'))) }}";

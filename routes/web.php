@@ -18,4 +18,8 @@ Route::resource('venues', 'VenuesController');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/venues/fetch', 'VenuesController@fetch')->name('venues.fetch');
+Route::post ( '/venues/storeModal', 'VenuesController@storeModal' );
+
+
+
 

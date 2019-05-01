@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Event;
+use App\Venue;
 
 class EventsController extends Controller
 {
@@ -52,14 +53,18 @@ class EventsController extends Controller
             'name' => 'required|max:80',
             'description' => 'required',
             'date_from' => 'required|date_format:Y-m-d|after:yesterday',
-            'date_to' => 'required|date_format:Y-m-d|after_or_equal:date_from'
+            'date_to' => 'required|date_format:Y-m-d|after_or_equal:date_from',
+            'venue_name_livesearch' => 'required'
         ]);
 
+        $venue_id = Venue::where('name', ($request->input('venue_name_livesearch')))->first()->id;
+        
         $event = new Event;
         $event->name = $request->input('name');
         $event->description = $request->input('description');
         $event->date_from = $request->input('date_from');
         $event->date_to = $request->input('date_to');
+        $event->venue_id = $venue_id;
         $event->img = '';
         $event->save();
 

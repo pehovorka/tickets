@@ -1,6 +1,6 @@
    
         <div class="form-group">
-         <input type="text" name="venue_name" id="venue_name" class="form-control input-lg" placeholder="Vyhledat..." />
+         <input type="text" name="venue_name_livesearch" id="venue_name_livesearch" class="form-control input-lg" placeholder="Vyhledat..." />
          <div id="venuesList">
          </div>
         </div>
@@ -10,7 +10,7 @@
      <script>
      $(document).ready(function(){
      
-      $('#venue_name').keyup(function(){ 
+      $('#venue_name_livesearch').keyup(function(){ 
              var query = $(this).val();
              if(query != '')
              {
@@ -28,7 +28,7 @@
          });
      
          $(document).on('click', 'li', function(){  
-             $('#venue_name').val($(this).text());  
+             $('#venue_name_livesearch').val($(this).text());  
              $('#venuesList').fadeOut();  
          });  
      
