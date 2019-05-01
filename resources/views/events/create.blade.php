@@ -10,7 +10,7 @@
 
 @section('content')
 <h1>Vytvořit akci</h1>
-{{ Form::open(['action' => 'EventsController@store', 'method' => 'POST']) }}
+{{ Form::open(['action' => 'EventsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
 <div class="form-group">
     {{Form::label('name', 'Název')}}
     {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Název'])}}
@@ -31,10 +31,19 @@
         </div>
     </div>
 </div>
+<div>Úvodní obrázek</div>
+<div class="form-group">
+    {{Form::file('img')}}
+</div>
 <hr>
 <h2>Místo konání</h2>
 <div class="row">
     <div class="col-12 col-sm-6 col-md-8">
+        <div class="form-group">
+                {{Form::text('venue_name_livesearch', '', ['class' => 'form-control input-lg', 'id' => 'venue_name_livesearch', 'placeholder' => 'Vyhledat...'])}}
+                <div id="venuesList"></div>
+        </div>
+            @include('venues.livesearch')
         @include('venues.livesearch')
     </div>
     <div class="col-6 col-md-4">
@@ -44,7 +53,6 @@
         </button>
     </div>
 </div>
-
 
 {{Form::submit('Odeslat', ['class'=>'btn btn-primary'])}}
 {{ Form::close() }}

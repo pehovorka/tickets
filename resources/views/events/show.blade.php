@@ -2,6 +2,7 @@
 
 @section('content')
     <h1>{{$event->name}}</h1>
+    <img src="/storage/cover_images/{{$event->img}}" class="card-img" alt="{{$event->name}}">
     {!!$event->description!!}
     <p>
             <small>

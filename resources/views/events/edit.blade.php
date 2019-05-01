@@ -9,7 +9,7 @@
 
 @section('content')
 <h1>Upravit akci</h1>
-{{ Form::open(['action' => ['EventsController@update', $event->id], 'method' => 'POST']) }}
+{{ Form::open(['action' => ['EventsController@update', $event->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
 <div class="form-group">
     {{Form::label('name', 'Název')}}
     {{Form::text('name', $event->name, ['class' => 'form-control', 'placeholder' => 'Název'])}}
@@ -30,33 +30,35 @@
         </div>
     </div>
 </div>
+<div>Úvodní obrázek</div>
+<div class="form-group">
+    {{Form::file('img')}}
+</div>
 <hr>
 <h2>Místo konání</h2>
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="existing-venue-tab" data-toggle="tab" href="#existing-venue" role="tab"
-            aria-controls="existing-venue" aria-selected="true">Vybrat</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="new-venue-tab" data-toggle="tab" href="#new-venue" role="tab" aria-controls="new-venue"
-            aria-selected="false">Nové</a>
-    </li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-    <div class="tab-pane active" id="existing-venue" role="tabpanel" aria-labelledby="existing-venue-tab">Existující
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-8">
+        <div class="form-group">
+                {{Form::text('venue_name_livesearch', $event->venue->name, ['class' => 'form-control input-lg', 'id' => 'venue_name_livesearch', 'placeholder' => 'Vyhledat...'])}}
+                <div id="venuesList"></div>
+        </div>
+        @include('venues.livesearch')
     </div>
-    <div class="tab-pane" id="new-venue" role="tabpanel" aria-labelledby="new-venue-tab">Nové</div>
+    <div class="col-6 col-md-4">
+        
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#createVenueModal">
+                Neexistuje? Vytvořit nové místo!
+        </button>
+    </div>
 </div>
-
 
 {{Form::hidden('_method','PUT')}}
 {{Form::submit('Odeslat', ['class'=>'btn btn-primary'])}}
 {{ Form::close() }}
 
 
+
+@include('venues.create_modal')
 
 <script>
     var route_prefix = "{{ url(config('lfm.url_prefix', config('lfm.prefix'))) }}";

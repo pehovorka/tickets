@@ -1,9 +1,4 @@
-   
-        <div class="form-group">
-         <input type="text" name="venue_name_livesearch" id="venue_name_livesearch" class="form-control input-lg" placeholder="Vyhledat..." />
-         <div id="venuesList">
-         </div>
-        </div>
+
         {{ csrf_field() }}
 
      
