@@ -8,7 +8,7 @@
             <div class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img src="/storage/cover_images/{{$event->img}}" class="card-img" alt="{{$event->name}}">
+                                <a href="./events/{{$event->id}}"><img src="/storage/cover_images/{{$event->img}}" class="card-img" alt="{{$event->name}}"></a>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -26,6 +26,7 @@
                     </div>
             </div>
         @endforeach
+        {{$events->links()}}
     @else 
         <p>Žádné akce tady nemáme :(</p>
     @endif

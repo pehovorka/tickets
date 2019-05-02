@@ -26,7 +26,7 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
+        $events = Event::paginate(10);
         return view('events.index')->with('events',$events);
     }
 
@@ -148,18 +148,23 @@ class EventsController extends Controller
             $path = $request->file('img')->storeAs('public/cover_images/',$fileNameToStore);
         }
 
-        if($request->hasFile('cover_image')){
-            if($post->cover_image != 'noimage.jpg') {
-                Storage::delete('public/cover_images/' . $post->cover_image);
-            }
-            $post->cover_image = $fileNameToStore;
-        }
+  
 
 
         //Update event
         $venue_id = Venue::where('name', ($request->input('venue_name_livesearch')))->first()->id;
 
         $event = Event::find($id);
+
+
+        //Delete image if changed
+        if($request->hasFile('cover_image')){
+            if($event->cover_image != 'noimage.jpg') {
+                Storage::delete('public/cover_images/' . $event->cover_image);
+            }
+            $event->cover_image = $fileNameToStore;
+        }
+
         $event->name = $request->input('name');
         $event->description = $request->input('description');
         $event->date_from = $request->input('date_from');
