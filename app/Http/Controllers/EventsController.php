@@ -202,6 +202,6 @@ class EventsController extends Controller
         }
 
         $event->delete();
-        return redirect('/events')->with('success', 'Akce byla odstraněna!');
+        return redirect('/home/events')->with('success', 'Akce byla odstraněna!');
     }
 }

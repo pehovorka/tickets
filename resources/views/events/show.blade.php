@@ -2,16 +2,16 @@
 
 @section('content')
     <h1>{{$event->name}}</h1>
-    <img src="/storage/cover_images/{{$event->img}}" class="card-img" alt="{{$event->name}}">
+    <img src="/storage/cover_images/{{$event->img}}" class="card-img mb-4" alt="{{$event->name}}">
     {!!$event->description!!}
     <p>
             <small>
-                    @if($event->date_from == $event->date_to)
-                        {{\Carbon\Carbon::parse($event->date_from)->format('d. m. Y')}}
-                    @else
-                        {{\Carbon\Carbon::parse($event->date_from)->format('d. m. Y')}} – {{\Carbon\Carbon::parse($event->date_to)->format('d. m. Y')}}
-                    @endif
-                </small>
+                @if($event->date_from == $event->date_to)
+                    {{\Carbon\Carbon::parse($event->date_from)->format('d. m. Y')}}
+                @else
+                    {{\Carbon\Carbon::parse($event->date_from)->format('d. m. Y')}} – {{\Carbon\Carbon::parse($event->date_to)->format('d. m. Y')}}
+                @endif
+            </small>
     </p>
 
 

@@ -16,8 +16,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <script src="{{asset('js/app.js')}}"></script>
     @yield('head') 
 </head>
 <body>
@@ -29,6 +28,5 @@
         </main>
         @include('inc.footer')
     </div>
-    <script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>

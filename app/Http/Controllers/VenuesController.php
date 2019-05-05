@@ -15,7 +15,7 @@ class VenuesController extends Controller
      */
     public function index()
     {
-        return view('venues.livesearch');
+        //
     }
 
     /**
@@ -140,9 +140,12 @@ class VenuesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $request->user()->authorizeRoles(['administrator', 'manager']);
+        $venue = Venue::find($id);
+        $venue->delete();
+        return redirect('/home/venues')->with('success', 'Místo bylo odstraněno!');
     }
 
 
