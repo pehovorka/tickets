@@ -19,4 +19,10 @@ class Event extends Model
         return $this->belongsTo('App\Venue');
     }
 
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

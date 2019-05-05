@@ -85,6 +85,7 @@ class EventsController extends Controller
         $event->date_to = $request->input('date_to');
         $event->venue_id = $venue_id;
         $event->img = $fileNameToStore;
+        $event->user_id = auth()->user()->id;
         $event->save();
 
         return redirect('/events')->with('success', 'Akce byla úspěšně přidána!');
@@ -112,7 +113,15 @@ class EventsController extends Controller
     {
         $request->user()->authorizeRoles(['administrator', 'manager']);
         $event = Event::find($id);
-        return view('events.edit')->with('event',$event);
+
+        if (auth()->user()->id == $event->user_id || auth()->user()->hasRole('administrator')){
+            return view('events.edit')->with('event',$event);
+        }
+        else {
+            return abort(401);
+        }
+        
+
     }
 
     /**
@@ -196,12 +205,22 @@ class EventsController extends Controller
         $request->user()->authorizeRoles(['administrator', 'manager']);
         $event = Event::find($id);
 
-        //Delete image
-        if($event->img != 'noimage.jpg'){
-            Storage::delete('public/cover_images/'.$event->img);
+
+        if (auth()->user()->id == $event->user_id || auth()->user()->hasRole('administrator')){
+            //Delete image
+            if($event->img != 'noimage.jpg'){
+                Storage::delete('public/cover_images/'.$event->img);
+            }
+
+            $event->delete();
+            return redirect('/home/events')->with('success', 'Akce byla odstraněna!');
+        }
+        else {
+            return abort(401);
         }
 
-        $event->delete();
-        return redirect('/home/events')->with('success', 'Akce byla odstraněna!');
+
+
+
     }
 }

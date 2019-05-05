@@ -47,6 +47,10 @@ class User extends Authenticatable
         return $this->belongsTo('App\User_role');
     }
 
+    public function event(){
+        return $this->hasMany('App\Event');
+    }
+
     /**
      * @param string|array $roles
      */

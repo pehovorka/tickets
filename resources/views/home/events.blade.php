@@ -10,6 +10,9 @@
                 <th scope="col">Název</th>
                 <th scope="col">Místo</th>
                 <th scope="col">Datum</th>
+                @if (Auth::user()->hasRole('administrator'))
+                    <th scope="col">Autor</th>
+                @endif
                 <th scope="col">Akce</th>
               </tr>
             </thead>
@@ -24,6 +27,9 @@
                         {{\Carbon\Carbon::parse($event->date_from)->format('d. m. Y')}} – {{\Carbon\Carbon::parse($event->date_to)->format('d. m. Y')}}
                     @endif    
                 </td>
+                @if (Auth::user()->hasRole('administrator'))
+                <td scope="col">{{$event->user->first_name.' '.$event->user->last_name}}</td>
+                @endif
                 <td>
                     <div class="btn-group" role="group">
                         <a href="/events/{{$event->id}}/edit" role="button" class="btn btn-primary rounded-0">Upravit</a>

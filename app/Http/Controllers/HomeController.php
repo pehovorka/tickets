@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Event;
 use App\Venue;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -37,7 +38,14 @@ class HomeController extends Controller
     public function events(Request $request)
     {
         $request->user()->authorizeRoles(['administrator', 'manager']);
-        $events = Event::orderBy('date_to','desc')->get();
+        $user_id = auth()->user()->id;
+
+        if (auth()->user()->hasRole('administrator')){
+            $events = Event::orderBy('date_to','desc')->get();
+        }
+        else{
+            $events = Event::orderBy('date_to','desc')->where('user_id',$user_id)->get();
+        }
         return view('home.events')->with('events',$events);
     }
 

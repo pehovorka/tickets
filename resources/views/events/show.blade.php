@@ -53,7 +53,7 @@
     <a href="/events/" role="button" class="btn btn-outline-secondary">Zpět na seznam akcí</a>
     
     @auth
-    @if( Auth::user()->hasAnyRole(['administrator','manager']))
+    @if(( Auth::user()->hasRole('manager') && Auth::user()->id == $event->user_id ) || Auth::user()->hasRole('administrator') )
     <a href="/events/{{$event->id}}/edit" role="button" class="btn btn-default">Upravit akci</a>
     {!!Form::open(['EventsController@destroy', $event->id, 'method' => 'POST', 'class' => 'float-right delete'])!!}
         {{Form::hidden('_method','DELETE')}}
