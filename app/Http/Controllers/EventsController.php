@@ -137,7 +137,7 @@ class EventsController extends Controller
         $this->validate($request, [
             'name' => 'required|max:80',
             'description' => 'required',
-            'date_from' => 'required|date_format:Y-m-d|after:yesterday',
+            'date_from' => 'required|date_format:Y-m-d',
             'date_to' => 'required|date_format:Y-m-d|after_or_equal:date_from',
             'venue_name_livesearch' => 'required',
             'img' => 'image|nullable|max:1999'

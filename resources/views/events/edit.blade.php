@@ -20,11 +20,11 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="form-group col">
+        <div class="form-group col pl-0">
                {{Form::label('date_from', 'Datum od')}}
             {{Form::text('date_from', $event->date_from, ['class' => 'form-control date', 'id'=>'datepicker']) }}
         </div>
-        <div class="form-group col">
+        <div class="form-group col pr-0">
             {{Form::label('date_to', 'Datum do')}}
             {{Form::text('date_to', $event->date_to, ['class' => 'form-control date', 'id'=>'datepicker2']) }}
         </div>

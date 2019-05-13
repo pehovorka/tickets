@@ -58,7 +58,15 @@ class HomeController extends Controller
     public function venues(Request $request)
     {
         $request->user()->authorizeRoles(['administrator', 'manager']);
-        $venues = Venue::orderBy('name')->get();
+        $user_id = auth()->user()->id;
+
+        if (auth()->user()->hasRole('administrator')){
+            $venues = Venue::orderBy('name','desc')->get();
+        }
+        else{
+            $venues = Venue::orderBy('name','desc')->where('user_id',$user_id)->get();
+        }
         return view('home.venues')->with('venues',$venues);
+        
     }
 }

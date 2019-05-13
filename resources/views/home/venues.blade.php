@@ -10,6 +10,9 @@
                 <th scope="col">Název</th>
                 <th scope="col">Adresa</th>
                 <th scope="col">Mapa</th>
+                @if (Auth::user()->hasRole('administrator'))
+                    <th scope="col">Autor</th>
+                @endif
                 <th scope="col">Akce</th>
               </tr>
             </thead>
@@ -25,11 +28,14 @@
                 <td class="align-middle">
                     <a href="https://www.google.com/maps/search/?api=1&query={{$venue->lat}},{{$venue->long}}">Google Maps</a>, <a href="https://mapy.cz/zakladni?x={{$venue->long}}&y={{$venue->lat}}&z=16&source=coor&id={{$venue->long}}%2C{{$venue->lat}}">Mapy.cz</a>
                 </td>
+                @if (Auth::user()->hasRole('administrator'))
+                <td scope="col">{{$venue->user->first_name.' '.$venue->user->last_name}}</td>
+                @endif
                 <td>
                     <div class="btn-group" role="group">
-                        <div class="btn-group" role="group">
-                            <a href="/venues/{{$venue->id}}/edit" role="button" class="btn btn-primary rounded-0">Upravit</a>
-                        </div>
+                        <button type="button" class="btn btn-primary float-right rounded-0" data-toggle="modal" data-target="#editVenueModal">
+                                Upravit
+                        </button>
                         {!!Form::open(['action' => ['VenuesController@destroy', $venue->id], 'method' => 'POST', 'class' => 'delete'])!!}
                         {{Form::hidden('_method','DELETE')}}
                         {{Form::submit('Smazat', ['class'=>'btn btn-danger rounded-0'])}}
@@ -44,20 +50,15 @@
         <p>Nevytvořili jste žádné místo</p>
     @endif
     
-
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createVenueModal">
-                    Vytvořit nové místo
-            </button>
-
-        
-        
-        
-        @include('venues.create_modal')
-
     <a href="/home" role="button" class="btn btn-secondary">Zpět na hlavní panel</a>
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#createVenueModal">
+            Vytvořit nové místo
+    </button>
+    @include('venues.create_modal')
+    @include('venues.edit_modal')
     <script>
         $(".delete").on("submit", function(){
-            return confirm("Opravdu chcete toto místo odstranit??");
+            return confirm("Opravdu chcete toto místo odstranit?");
         });
     </script>
     <script>

@@ -19,7 +19,7 @@
             <tbody>
         @foreach ($events as $event)
             <tr>
-                <th scope="row" class="align-middle">{{$event->name}}</th>
+                <th scope="row" class="align-middle"><a href="/events/{{$event->id}}">{{$event->name}}</a></th>
                 <td class="align-middle">{{$event->venue->name}}</td>
                 <td class="align-middle">@if($event->date_from == $event->date_to)
                         {{\Carbon\Carbon::parse($event->date_from)->format('d. m. Y')}}
@@ -46,13 +46,8 @@
     @else 
         <p>Nevytvořili jste žádnou akci</p>
     @endif
-    
-    @auth
-    @if( Auth::user()->hasAnyRole(['administrator','manager']))
-        <a href="/events/create" role="button" class="btn btn-primary">Přidat novou akci</a>
-    @endif
-    @endauth
     <a href="/home" role="button" class="btn btn-secondary">Zpět na hlavní panel</a>
+    <a href="/events/create" role="button" class="btn btn-primary float-right">Přidat novou akci</a>
     <script>
         $(".delete").on("submit", function(){
             return confirm("Opravdu chcete tuto akci odstranit??");

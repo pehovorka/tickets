@@ -92,7 +92,7 @@ class VenuesController extends Controller
         $venue->country = $request->input('country');
         $venue->lat = $request->input('lat');
         $venue->long = $request->input('long');
-
+        $venue->user_id = auth()->user()->id;
         $venue->save();
 
         
@@ -131,7 +131,14 @@ class VenuesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->user()->authorizeRoles(['administrator', 'manager']);
+        /*  if (auth()->user()->id == $venue->user_id || auth()->user()->hasRole('administrator')){
+            return view('events.edit')->with('event',$venue);
+        }
+        else {
+            return abort(401);
+        } */
+
     }
 
     /**
@@ -144,8 +151,14 @@ class VenuesController extends Controller
     {
         $request->user()->authorizeRoles(['administrator', 'manager']);
         $venue = Venue::find($id);
-        $venue->delete();
-        return redirect('/home/venues')->with('success', 'Místo bylo odstraněno!');
+
+        if (auth()->user()->id == $venue->user_id || auth()->user()->hasRole('administrator')){
+            $venue->delete(); 
+            return redirect('/home/venues')->with('success', 'Místo bylo odstraněno!');
+        }
+        else {
+            return abort(401);
+        }
     }
 
 
