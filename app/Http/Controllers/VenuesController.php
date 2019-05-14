@@ -79,7 +79,7 @@ class VenuesController extends Controller
             'city' => 'required|max:60',
             'zip' => 'required|digits:5',
             'country' => 'required|max:60',
-            'lat' => 'required|numeric|between:0.00000001,90.0',
+            'lat' => 'required|numeric|between:-90.0,90.0',
             'long' => 'required|numeric|between:-180.0,180.0'
         ]);
 
@@ -132,6 +132,48 @@ class VenuesController extends Controller
     public function update(Request $request, $id)
     {
         $request->user()->authorizeRoles(['administrator', 'manager']);
+        /*  if (auth()->user()->id == $venue->user_id || auth()->user()->hasRole('administrator')){
+            return view('events.edit')->with('event',$venue);
+        }
+        else {
+            return abort(401);
+        } */
+
+    }
+
+    /**
+     * Update the specified resource in storage from the modal window.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateModal(Request $request, $id)
+    {
+        $request->user()->authorizeRoles(['administrator', 'manager']);
+        
+        $this->validate($request, [
+            'name' => 'required|max:80|unique:venues,name,'.$id,
+            'description' => 'required|max:150',
+            'street' => 'required|max:60',
+            'city' => 'required|max:60',
+            'zip' => 'required|digits:5',
+            'country' => 'required|max:60',
+            'lat' => 'required|numeric|between:-90.0,90.0',
+            'long' => 'required|numeric|between:-180.0,180.0'
+        ]);
+        $venue = Venue::find($id);
+        $venue->name = $request->input('name');
+        $venue->description = $request->input('description');
+        $venue->street = $request->input('street');
+        $venue->city = $request->input('city');
+        $venue->zip = $request->input('zip');
+        $venue->country = $request->input('country');
+        $venue->lat = $request->input('lat');
+        $venue->long = $request->input('long');
+        $venue->save();
+
+        return response ()->json ( $venue );
         /*  if (auth()->user()->id == $venue->user_id || auth()->user()->hasRole('administrator')){
             return view('events.edit')->with('event',$venue);
         }

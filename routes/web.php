@@ -18,6 +18,7 @@ Route::resource('venues', 'VenuesController');
 
 Route::post('/venues/fetch', 'VenuesController@fetch')->name('venues.fetch');
 Route::post ( '/venues/storeModal', 'VenuesController@storeModal' );
+Route::put('/venues/{venue}', 'VenuesController@updateModal');
 
 
 //Home auth views

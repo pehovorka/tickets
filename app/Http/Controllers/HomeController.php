@@ -61,10 +61,10 @@ class HomeController extends Controller
         $user_id = auth()->user()->id;
 
         if (auth()->user()->hasRole('administrator')){
-            $venues = Venue::orderBy('name','desc')->get();
+            $venues = Venue::orderBy('name','asc')->get();
         }
         else{
-            $venues = Venue::orderBy('name','desc')->where('user_id',$user_id)->get();
+            $venues = Venue::orderBy('name','asc')->where('user_id',$user_id)->get();
         }
         return view('home.venues')->with('venues',$venues);
         

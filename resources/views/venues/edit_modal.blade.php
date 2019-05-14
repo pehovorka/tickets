@@ -8,11 +8,11 @@
               </button>
             </div>
             <div class="modal-body">
-                <span id="errors"></span> 
+                <span id="errors_edit"></span> 
                 {{ Form::open([]) }} 
                 @csrf
                 <div class="form-group">
-                    {{Form::label('venue_name_input', 'Název místa')}} {{Form::text('venue_name_input', $venue->name, ['class' => 'form-control', 'placeholder'
+                    {{Form::label('venue_name_input', 'Název místa')}} {{Form::text('venue_name_input', '', ['class' => 'form-control', 'placeholder'
                     => 'Název místa'])}}
                 </div>
                 <div class="form-group">
@@ -64,31 +64,53 @@
 
 
 <script>
+    var venue_id = 0;
+    $(".openEditVenueModalButton").click(function() {
+        venue_id = $(this).data('venue_id');
+        var name = $(this).data('name');
+        var description = $(this).data('description');
+        var street = $(this).data('street');
+        var city = $(this).data('city');
+        var zip = $(this).data('zip');
+        var country = $(this).data('country');
+        var lat = $(this).data('lat');
+        var long = $(this).data('long');
+        $("input[name=venue_name_input]").val(name);
+        $("input[name=venue_description]").val(description);
+        $("input[name=street]").val(street);
+        $("input[name=city]").val(city);
+        $("input[name=zip]").val(zip);
+        $("input[name=country]").val(country);
+        $("input[name=lat]").val(lat);
+        $("input[name=long]").val(long);
+    });
+
     $("#editVenueButton").click(function() {
-    $("#errors").html("");
+    $("#errors_edit").html("");
+    console.log(venue_id);
     var request = $.ajax({
-            type: 'post',
-            url: '/venues/storeModal',
+            type: 'put',
+            url: '/venues/'+venue_id,
             data: {
                 '_token': '{{csrf_token()}}',
-                'name': $('input[name=venue_name_input]').val(),
-                'description': $('input[name=venue_description]').val(),
-                'street': $('input[name=street]').val(),
-                'city': $('input[name=city]').val(),
-                'zip': $('input[name=zip]').val(),
-                'country': $('input[name=country]').val(),
-                'lat': $('input[name=lat]').val(),
-                'long': $('input[name=long]').val()
+                'name': $('#editVenueModal input[name=venue_name_input]').val(),
+                'description': $('#editVenueModal input[name=venue_description]').val(),
+                'street': $('#editVenueModal input[name=street]').val(),
+                'city': $('#editVenueModal input[name=city]').val(),
+                'zip': $('#editVenueModal input[name=zip]').val(),
+                'country': $('#editVenueModal input[name=country]').val(),
+                'lat': $('#editVenueModal input[name=lat]').val(),
+                'long': $('#editVenueModal input[name=long]').val()
             },
             success: function (data) {
                 console.log(data);
-                $('#createVenueModal').modal('hide');
-                $('#venue_name_livesearch').val($('input[name=venue_name_input]').val());
+                $('#editVenueModal').modal('hide');
             },
             error: function (xhr, status, error) {
-                $.each(xhr.responseJSON.errors, function (key, item) 
+                console.log(xhr);
+                $.each(xhr.responseJSON.errors, function (key, item)
           {
-            $("#errors").append("<div class='alert alert-danger'>"+item+"</div>")
+            $("#errors_edit").append("<div class='alert alert-danger'>"+item+"</div>")
           });
             }
         });

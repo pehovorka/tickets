@@ -26,14 +26,24 @@
                         {{$venue->city}}, 
                         {{$venue->country}}</td>
                 <td class="align-middle">
-                    <a href="https://www.google.com/maps/search/?api=1&query={{$venue->lat}},{{$venue->long}}">Google Maps</a>, <a href="https://mapy.cz/zakladni?x={{$venue->long}}&y={{$venue->lat}}&z=16&source=coor&id={{$venue->long}}%2C{{$venue->lat}}">Mapy.cz</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query={{$venue->lat}},{{$venue->long}}" target="_blank">Google Maps</a>, <a href="https://mapy.cz/zakladni?x={{$venue->long}}&y={{$venue->lat}}&z=16&source=coor&id={{$venue->long}}%2C{{$venue->lat}}" target="_blank">Mapy.cz</a>
                 </td>
                 @if (Auth::user()->hasRole('administrator'))
                 <td scope="col">{{$venue->user->first_name.' '.$venue->user->last_name}}</td>
                 @endif
                 <td>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary float-right rounded-0" data-toggle="modal" data-target="#editVenueModal">
+                        <button type="button" class="btn btn-primary float-right rounded-0 openEditVenueModalButton" data-toggle="modal" data-target="#editVenueModal"
+                            data-venue_id="{{$venue->id}}"
+                            data-name="{{$venue->name}}"
+                            data-description="{{$venue->description}}"
+                            data-street="{{$venue->street}}"
+                            data-city="{{$venue->city}}"
+                            data-zip="{{$venue->zip}}"
+                            data-country="{{$venue->country}}"
+                            data-lat="{{$venue->lat}}"
+                            data-long="{{$venue->long}}"
+                        >
                                 Upravit
                         </button>
                         {!!Form::open(['action' => ['VenuesController@destroy', $venue->id], 'method' => 'POST', 'class' => 'delete'])!!}
@@ -63,6 +73,9 @@
     </script>
     <script>
         $('#createVenueModal').on('hidden.bs.modal', function(){
+            location.reload();
+        });
+        $('#editVenueModal').on('hidden.bs.modal', function(){
             location.reload();
         })
     </script>
