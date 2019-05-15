@@ -105,6 +105,7 @@
             success: function (data) {
                 console.log(data);
                 $('#editVenueModal').modal('hide');
+                location.reload();
             },
             error: function (xhr, status, error) {
                 console.log(xhr);

@@ -84,6 +84,9 @@
                 console.log(data);
                 $('#createVenueModal').modal('hide');
                 $('#venue_name_livesearch').val($('input[name=venue_name_input]').val());
+                if(window.location.pathname === "/home/venues"){
+                    location.reload();
+                };
             },
             error: function (xhr, status, error) {
                 $.each(xhr.responseJSON.errors, function (key, item) 

@@ -71,12 +71,4 @@
             return confirm("Opravdu chcete toto místo odstranit?");
         });
     </script>
-    <script>
-        $('#createVenueModal').on('hidden.bs.modal', function(){
-            location.reload();
-        });
-        $('#editVenueModal').on('hidden.bs.modal', function(){
-            location.reload();
-        })
-    </script>
 @endsection
