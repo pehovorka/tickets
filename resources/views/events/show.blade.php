@@ -50,7 +50,7 @@
                 var marker = new google.maps.Marker({position: venue, map: map});
             }
             </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV-1BgvCSbsQMdkMx7zOHszH6OTtYn1Tc&callback=initMap"
+            <script src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_API_KEY')}}&callback=initMap"
             async defer></script>
 
         </div>
