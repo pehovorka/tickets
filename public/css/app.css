@@ -10662,3 +10662,9 @@ a.text-dark:focus {
   }
 }
 
+.checkbox-inline {
+  -webkit-columns: 4;
+  -moz-columns: 4;
+  columns: 4;
+}
+

@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{$event->name}}</h1>
+    <div class="d-flex align-items-center">
+        <h1 class="mr-4">{{$event->name}}</h1>
+        @foreach ($event->event_category as $category)
+            <span class="badge badge-info ml-2 text-light">{{$category->name}}</span>
+        @endforeach
+    </div>
     <img src="/storage/cover_images/{{$event->img}}" class="card-img mb-4" alt="{{$event->name}}">
     {!!$event->description!!}
     <p>

@@ -13,6 +13,9 @@
                         <div class="col-md-8">
                             <div class="card-body">
                             <h2 class="card-title"><a href="./events/{{$event->id}}">{{$event->name}}</a></h2>
+                            @foreach ($event->event_category as $category)
+                                <span class="badge badge-secondary">{{$category->name}}</span>
+                            @endforeach
                             <p class="card-text">{{$event->venue->name}}</p>
                             <p class="card-text"><small class="text-muted">
                                 @if($event->date_from == $event->date_to)

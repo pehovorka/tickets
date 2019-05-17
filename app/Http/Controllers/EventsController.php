@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Event;
+use App\Event_category;
 use App\Venue;
 
 class EventsController extends Controller
@@ -38,7 +39,7 @@ class EventsController extends Controller
     public function create(Request $request)
     {
         $request->user()->authorizeRoles(['administrator', 'manager']);
-        return view('events.create');
+        return view('events.create')->with(['categories'=> $this->getAllCategories(), 'checked_categories'=> collect()]);
     }
 
     /**
@@ -75,6 +76,7 @@ class EventsController extends Controller
             $fileNameToStore = 'noimage.jpg';
         }
 
+
         // Create Event
         $venue_id = Venue::where('name', ($request->input('venue_name_livesearch')))->first()->id;
 
@@ -87,6 +89,10 @@ class EventsController extends Controller
         $event->img = $fileNameToStore;
         $event->user_id = auth()->user()->id;
         $event->save();
+
+        $categories_checkbox = $request->get('category');
+        $id = $event->id;
+        Event::find($id)->event_category()->sync($categories_checkbox);
 
         return redirect('/events')->with('success', 'Akce byla úspěšně přidána!');
     }
@@ -115,7 +121,7 @@ class EventsController extends Controller
         $event = Event::find($id);
 
         if (auth()->user()->id == $event->user_id || auth()->user()->hasRole('administrator')){
-            return view('events.edit')->with('event',$event);
+            return view('events.edit')->with(['event' => $event, 'categories'=> $this->getAllCategories(), 'checked_categories'=> $this->getCheckedCategories($id)]);
         }
         else {
             return abort(401);
@@ -188,7 +194,11 @@ class EventsController extends Controller
             }
             $event->img = $fileNameToStore;
         }
+
         $event->save();
+
+        $categories_checkbox = $request->get('category');
+        Event::find($id)->event_category()->sync($categories_checkbox);
 
         return redirect('/events')->with('success', 'Akce byla úspěšně upravena!');
     
@@ -223,4 +233,27 @@ class EventsController extends Controller
 
 
     }
+
+    /**
+    * Display a listing of the event categories.
+    *
+    * @return \Illuminate\Http\Response
+    */
+   public function getAllCategories()
+   {
+       $categories = Event_category::all();
+       return $categories;
+   }
+
+    /**
+    * Display a listing of the checked event categories.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function getCheckedCategories($event_id)
+    {
+        $checkedCategories = Event::find($event_id)->event_category;
+        return $checkedCategories;
+    }
+
 }
