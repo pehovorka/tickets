@@ -40,7 +40,7 @@ return [
     'dimensions' => 'The :attribute has invalid image dimensions.',
     'distinct' => 'The :attribute field has a duplicate value.',
     'email' => 'Položka :attribute musí být validní emailovou adresou.',
-    'exists' => 'The selected :attribute is invalid.',
+    'exists' => 'Zvolené :attribute neexistuje.',
     'file' => ':attribute musí být soubor.',
     'filled' => 'The :attribute field must have a value.',
     'gt' => [
@@ -179,7 +179,8 @@ return [
         'country' => 'země',
         'gps' => 'souřadnice',
         'first_name' => 'jméno',
-        'last_name' => 'příjmení'
+        'last_name' => 'příjmení',
+        'venue_name_livesearch' => 'místo konání'
     ],
 
 ];

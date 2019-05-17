@@ -20,7 +20,7 @@
         @foreach ($events as $event)
             <tr>
                 <th scope="row" class="align-middle"><a href="/events/{{$event->id}}">{{$event->name}}</a></th>
-                <td class="align-middle">{{$event->venue->name}}</td>
+                <td class="align-middle">@if ($event->venue){{$event->venue->name}} @endif</td>
                 <td class="align-middle">@if($event->date_from == $event->date_to)
                         {{\Carbon\Carbon::parse($event->date_from)->format('d. m. Y')}}
                     @else

@@ -16,7 +16,9 @@
                             @foreach ($event->event_category as $category)
                                 <span class="badge badge-secondary">{{$category->name}}</span>
                             @endforeach
-                            <p class="card-text">{{$event->venue->name}}</p>
+                            @if ($event->venue)
+                                <p class="card-text">{{$event->venue->name}}</p>
+                            @endif
                             <p class="card-text"><small class="text-muted">
                                 @if($event->date_from == $event->date_to)
                                     {{\Carbon\Carbon::parse($event->date_from)->format('d. m. Y')}}

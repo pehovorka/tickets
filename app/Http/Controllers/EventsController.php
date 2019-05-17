@@ -56,7 +56,7 @@ class EventsController extends Controller
             'description' => 'required',
             'date_from' => 'required|date_format:Y-m-d|after:yesterday',
             'date_to' => 'required|date_format:Y-m-d|after_or_equal:date_from',
-            'venue_name_livesearch' => 'required',
+            'venue_name_livesearch' => 'required|exists:venues,name',
             'img' => 'image|nullable|max:1999'
         ]);
         //Handle file upload
@@ -119,9 +119,14 @@ class EventsController extends Controller
     {
         $request->user()->authorizeRoles(['administrator', 'manager']);
         $event = Event::find($id);
+        $venue_name = "";
+
+        if ($event->venue) {
+            $venue_name = $event->venue->name;
+        }
 
         if (auth()->user()->id == $event->user_id || auth()->user()->hasRole('administrator')){
-            return view('events.edit')->with(['event' => $event, 'categories'=> $this->getAllCategories(), 'checked_categories'=> $this->getCheckedCategories($id)]);
+            return view('events.edit')->with(['event' => $event, 'venue_name' => $venue_name, 'categories'=> $this->getAllCategories(), 'checked_categories'=> $this->getCheckedCategories($id)]);
         }
         else {
             return abort(401);
@@ -145,7 +150,7 @@ class EventsController extends Controller
             'description' => 'required',
             'date_from' => 'required|date_format:Y-m-d',
             'date_to' => 'required|date_format:Y-m-d|after_or_equal:date_from',
-            'venue_name_livesearch' => 'required',
+            'venue_name_livesearch' => 'required|exists:venues,name',
             'img' => 'image|nullable|max:1999'
         ]);
 

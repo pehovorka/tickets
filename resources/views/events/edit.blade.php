@@ -42,7 +42,7 @@
 <div class="row">
     <div class="col-12 col-sm-6 col-md-8">
         <div class="form-group">
-                {{Form::text('venue_name_livesearch', $event->venue->name, ['class' => 'form-control input-lg', 'id' => 'venue_name_livesearch', 'placeholder' => 'Vyhledat...'])}}
+                {{Form::text('venue_name_livesearch', $venue_name, ['class' => 'form-control input-lg', 'id' => 'venue_name_livesearch', 'placeholder' => 'Vyhledat...'])}}
                 <div id="venuesList"></div>
         </div>
         @include('venues.livesearch')
