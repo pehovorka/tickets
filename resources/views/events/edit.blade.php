@@ -12,21 +12,21 @@
 {{ Form::open(['action' => ['EventsController@update', $event->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
 <div class="form-group">
     {{Form::label('name', 'Název')}}
-    {{Form::text('name', $event->name, ['class' => 'form-control', 'placeholder' => 'Název'])}}
+    {{Form::text('name', $event->name, ['class' => 'form-control', 'placeholder' => 'Název', 'required'])}}
 </div>
 <div class="form-group">
     {{Form::label('description', 'Popis')}}
-    {{Form::textarea('description', $event->description, ['id' => 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Popis'])}}
+    {{Form::textarea('description', $event->description, ['id' => 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Popis', 'required'])}}
 </div>
 <div class="container">
     <div class="row">
         <div class="form-group col pl-0">
                {{Form::label('date_from', 'Datum od')}}
-            {{Form::text('date_from', $event->date_from, ['class' => 'form-control date', 'id'=>'datepicker']) }}
+            {{Form::text('date_from', $event->date_from, ['class' => 'form-control date', 'id'=>'datepicker', 'required']) }}
         </div>
         <div class="form-group col pr-0">
             {{Form::label('date_to', 'Datum do')}}
-            {{Form::text('date_to', $event->date_to, ['class' => 'form-control date', 'id'=>'datepicker2']) }}
+            {{Form::text('date_to', $event->date_to, ['class' => 'form-control date', 'id'=>'datepicker2', 'required']) }}
         </div>
     </div>
 </div>
@@ -42,7 +42,7 @@
 <div class="row">
     <div class="col-12 col-sm-6 col-md-8">
         <div class="form-group">
-                {{Form::text('venue_name_livesearch', $venue_name, ['class' => 'form-control input-lg', 'id' => 'venue_name_livesearch', 'placeholder' => 'Vyhledat...'])}}
+                {{Form::text('venue_name_livesearch', $venue_name, ['class' => 'form-control input-lg', 'id' => 'venue_name_livesearch', 'placeholder' => 'Vyhledat...', 'required'])}}
                 <div id="venuesList"></div>
         </div>
         @include('venues.livesearch')
@@ -54,6 +54,9 @@
         </button>
     </div>
 </div>
+<hr>
+<h2>Vstupenky</h2>
+@include('tickets.edit')
 
 {{Form::hidden('_method','PUT')}}
 {{Form::submit('Odeslat', ['class'=>'btn btn-primary'])}}
@@ -78,7 +81,11 @@
 
 </script>
 <script>
-    CKEDITOR.replace('article-ckeditor', options);
+    var editor = CKEDITOR.replace('article-ckeditor', options);
+    editor.on( 'required', function( evt ) {
+    alert( 'Prosím vyplňte popis.' );
+    evt.cancel();
+} );
 </script>
 <script type="text/javascript">
     $('.date').datetimepicker({

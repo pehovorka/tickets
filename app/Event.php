@@ -30,4 +30,11 @@ class Event extends Model
         return $this->belongsToMany('App\Event_category', 'event_event_category');
     }
 
+    public function ticket()
+    {
+        return $this->hasMany('App\Ticket');
+    }
+
+
+
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Event;
 use App\Event_category;
 use App\Venue;
+use App\Ticket;
 
 class EventsController extends Controller
 {
@@ -57,7 +58,9 @@ class EventsController extends Controller
             'date_from' => 'required|date_format:Y-m-d|after:yesterday',
             'date_to' => 'required|date_format:Y-m-d|after_or_equal:date_from',
             'venue_name_livesearch' => 'required|exists:venues,name',
-            'img' => 'image|nullable|max:1999'
+            'img' => 'image|nullable|max:1999',
+            'ticket.*.name' => 'required',
+            'ticket.*.price' => 'required|numeric|between:0,99999',
         ]);
         //Handle file upload
         if($request->hasFile('img')){
@@ -89,10 +92,24 @@ class EventsController extends Controller
         $event->img = $fileNameToStore;
         $event->user_id = auth()->user()->id;
         $event->save();
+        
 
-        $categories_checkbox = $request->get('category');
         $id = $event->id;
+
+        //Categories
+        $categories_checkbox = $request->get('category');
         Event::find($id)->event_category()->sync($categories_checkbox);
+
+        //Tickets
+        if ($request->ticket){
+            foreach ($request->ticket as $value) {
+                $ticket =  new Ticket;
+                $ticket->name = $value['name'];
+                $ticket->price = $value['price'];
+                $ticket->event_id = $id;
+                $ticket->save();
+            }
+        }
 
         return redirect('/events')->with('success', 'Akce byla úspěšně přidána!');
     }
@@ -202,8 +219,21 @@ class EventsController extends Controller
 
         $event->save();
 
+        //Categories
         $categories_checkbox = $request->get('category');
         Event::find($id)->event_category()->sync($categories_checkbox);
+
+        //Tickets
+        $event->ticket()->delete();
+        if ($request->ticket){
+            foreach ($request->ticket as $value) { 
+                $ticket =  new Ticket;
+                $ticket->name = $value['name'];
+                $ticket->price = $value['price'];
+                $ticket->event_id = $id;
+                $ticket->save();
+            }
+        }
 
         return redirect('/events')->with('success', 'Akce byla úspěšně upravena!');
     

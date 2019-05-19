@@ -10668,3 +10668,7 @@ a.text-dark:focus {
   columns: 4;
 }
 
+.ticketText {
+  font-size: 1.2rem;
+}
+

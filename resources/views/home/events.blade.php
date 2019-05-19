@@ -31,7 +31,7 @@
                 <td scope="col">{{$event->user->first_name.' '.$event->user->last_name}}</td>
                 @endif
                 <td>
-                    <div class="btn-group" role="group">
+                    <div class="btn-group w-100" role="group">
                         <a href="/events/{{$event->id}}/edit" role="button" class="btn btn-primary rounded-0">Upravit</a>
                         {!!Form::open(['action' => ['EventsController@destroy', $event->id], 'method' => 'POST', 'class' => 'delete'])!!}
                             {{Form::hidden('_method','DELETE')}}
