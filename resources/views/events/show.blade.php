@@ -22,6 +22,7 @@
     @if (count($event->ticket) > 0)
         <h3>Vstupenky</h3>
         @foreach ($event->ticket as $ticket)
+        {{ Form::open(['action' => ['TicketsController@showOrder', $ticket->id], 'method' => 'POST']) }}
         <div class="card bg-secondary text-white mb-3">
                 <div class="row no-gutters">
                   <div class="col-md-2">
@@ -34,21 +35,24 @@
                   </div>
                   <div class="col-md-2 align-items-center d-flex justify-content-center">
                     <div class="card-body text-right">
-                        <span class="mb-0 ticketText"><strong>{{$ticket->price}} Kč</strong></span>
+                        <span class="mb-0 ticketText"><strong>{{number_format($ticket->price, 0, ',', ' ')}} Kč</strong></span>
                     </div>
                   </div>
+
                   <div class="col-md-1 align-items-center d-flex justify-content-center">
                     <div class="card-body form-group form-group-lg p-3 mb-0">
-                        <input class="form-control input-number text-center" value="1" min="1" max="10" type="text">
+                        {{Form::number('quantity', '1', ['class' => 'form-control input-number text-center', 'required', 'min' => '1', 'max' => '10'])}}
                     </div>
                   </div>
                   <div class="col-md-2 align-items-center d-flex justify-content-center">
                     <div class="card-body text-right">
-                        <button class="btn btn-primary ticketText w-100">Koupit</button>
+                        {{Form::submit('Koupit', ['class'=>'btn btn-primary ticketText w-100'])}}
                     </div>
                   </div>
+                 
                 </div>
               </div>
+              {{ Form::close() }}
         @endforeach
     @endif
     @if ($event->venue)

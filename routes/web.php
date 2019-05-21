@@ -29,4 +29,8 @@ Route::get('/home/venues', 'HomeController@venues');
 
 
 
+//Tickets
+Route::post('/tickets/buy/{ticket}', 'TicketsController@showOrder');
+
+
 

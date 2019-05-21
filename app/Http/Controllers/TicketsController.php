@@ -3,9 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Ticket;
+use App\Payment_method;
 
 class TicketsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -80,5 +91,20 @@ class TicketsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Buy specified ticket.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showOrder($id, Request $request)
+    {
+        $ticket = Ticket::find($id);
+        $paymentMethods = Payment_method::all();
+        $quantity = $request->quantity;
+        return view('tickets.show_order')->with(['ticket' => $ticket, 'quantity'=> $quantity, 'paymentMethods'=> $paymentMethods]);
+            
     }
 }
