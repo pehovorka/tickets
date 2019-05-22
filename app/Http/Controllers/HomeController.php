@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Event;
 use App\Venue;
-use App\User;
+use App\Ticket_user;
 
 class HomeController extends Controller
 {
@@ -47,6 +47,19 @@ class HomeController extends Controller
             $events = Event::orderBy('date_to','desc')->where('user_id',$user_id)->get();
         }
         return view('home.events')->with('events',$events);
+    }
+
+     /**
+     * Display an admin listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tickets(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        $tickets = Ticket_user::orderBy('created_at','desc')->where('user_id',$user_id)->get();
+
+        return view('home.tickets')->with('tickets',$tickets);
     }
 
 

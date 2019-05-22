@@ -55,6 +55,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Venue');
     }
 
+    public function ticket_user(){
+        return $this->hasMany('App\Ticket_user');
+    }
+
     /**
      * @param string|array $roles
      */

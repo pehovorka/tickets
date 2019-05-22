@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment_method extends Model
 {
-    //
+    public function transaction()
+    {
+        return $this->hasMany('App\Transaction');
+    }
+
 }

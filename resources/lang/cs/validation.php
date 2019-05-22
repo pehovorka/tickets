@@ -148,6 +148,9 @@ return [
             'required' => 'Musíte vyplnit datum konce události!',
             'after_or_equal' => 'Konec události musí být ve stejný den nebo později, než začátek.',
         ],
+        'payment_method' => [
+            'required' => 'Vyberte prosím platební metodu!',
+        ],
         
 
     ],

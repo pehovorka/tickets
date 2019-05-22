@@ -12,4 +12,10 @@ class Ticket extends Model
         return $this->belongsTo('App\Event');
     }
 
+
+    public function ticket_user()
+    {
+        return $this->hasMany('App\Ticket_user');
+    }
+
 }

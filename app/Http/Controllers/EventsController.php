@@ -227,6 +227,7 @@ class EventsController extends Controller
         $event->ticket()->delete();
         if ($request->ticket){
             foreach ($request->ticket as $value) { 
+                
                 $ticket =  new Ticket;
                 $ticket->name = $value['name'];
                 $ticket->price = $value['price'];

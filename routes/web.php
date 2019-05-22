@@ -26,11 +26,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/events', 'HomeController@events');
 Route::get('/home/venues', 'HomeController@venues');
+Route::get('/home/tickets', 'HomeController@tickets');
 
 
 
 //Tickets
-Route::post('/tickets/buy/{ticket}', 'TicketsController@showOrder');
-
+Route::match(array('GET', 'POST'), '/tickets/buy/{ticket}', 'TicketsController@showOrder');
+Route::post('/tickets/store/{ticket_user}', 'TicketsController@store');
+Route::get('/tickets/show/{uuid}', 'TicketsController@show');
+Route::get('/tickets/validate/{uuid}', 'TicketsController@validateTicket')->name('validateTicket');
+Route::post('/tickets/use/{uuid}', 'TicketsController@useTicket');
 
 
