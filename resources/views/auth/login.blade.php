@@ -64,6 +64,12 @@
                                 @endif
                             </div>
                         </div>
+                        <hr>
+                        <div class="form-group mt-3">
+                            <div class="col text-center">
+                              <a href="/login/facebook" class="btn btn-primary"><i class="fab fa-facebook-square"></i> Přihlásit se pomocí Facebooku</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

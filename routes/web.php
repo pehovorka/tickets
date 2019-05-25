@@ -21,8 +21,13 @@ Route::post ( '/venues/storeModal', 'VenuesController@storeModal' );
 Route::put('/venues/{venue}', 'VenuesController@updateModal');
 
 
-//Home auth views
+//Auth routes
 Auth::routes();
+Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+
+
+//Home routes
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/events', 'HomeController@events');
 Route::get('/home/venues', 'HomeController@venues');
@@ -35,6 +40,6 @@ Route::match(array('GET', 'POST'), '/tickets/buy/{ticket}', 'TicketsController@s
 Route::post('/tickets/store/{ticket_user}', 'TicketsController@store');
 Route::get('/tickets/show/{uuid}', 'TicketsController@show');
 Route::get('/tickets/validate/{uuid}', 'TicketsController@validateTicket')->name('validateTicket');
-Route::post('/tickets/use/{uuid}', 'TicketsController@useTicket');
+Route::post('/tickets/use/', 'TicketsController@useTicket');
 
 

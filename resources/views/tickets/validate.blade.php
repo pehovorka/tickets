@@ -11,7 +11,8 @@
                 <div class="card-body">
                     <p class="card-text">ID vstupenky: {{$ticket_user->uuid}}</p>
                     <div id="validate">
-                        {{ Form::open(['action' => ['TicketsController@useTicket', $ticket_user->uuid], 'method' => 'POST']) }}
+                        {{ Form::open(['action' => 'TicketsController@useTicket', 'method' => 'POST']) }}
+                        {{Form::hidden('uuid', $ticket_user->uuid)}}
                         {{Form::submit('POUŽÍT', ['class'=>'btn btn-danger w-100 pt-4 pb-4'])}} {{ Form::close() }}
                     </div>
                 </div>

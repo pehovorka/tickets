@@ -122,10 +122,10 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function useTicket(Request $request, $uuid)
+    public function useTicket(Request $request)
     {
         $request->user()->authorizeRoles(['administrator', 'manager']);
-        $ticket_user = Ticket_user::where('uuid', $uuid)->firstOrFail();
+        $ticket_user = Ticket_user::where('uuid', $request->uuid)->firstOrFail();
         $ticket_user->used = now();
         $ticket_user->save();
         return redirect('/tickets/validate/'.$ticket_user->uuid)->with('success', 'Vstupenka byla použita!');
