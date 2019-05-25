@@ -18,7 +18,7 @@ class EventsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth')->except(['index','show','index_past','index_upcoming']);
     }
 
     /**
@@ -28,8 +28,31 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events = Event::paginate(10);
-        return view('events.index')->with('events',$events);
+        $currentEvents = Event::orderBy('date_to','asc')->where('date_to', '>=', now()->format('Y-m-d'))->where('date_from', '<=', now()->format('Y-m-d'))->get();
+        $upcomingEvents = Event::orderBy('date_from','asc')->where('date_from', '>', now()->format('Y-m-d'))->take(10)->get();
+        return view('events.index')->with(['currentEvents' => $currentEvents, 'upcomingEvents' => $upcomingEvents]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_past()
+    {
+        $pastEvents = Event::orderBy('date_to','desc')->where('date_to', '<', now()->format('Y-m-d'))->paginate(9);
+        return view('events.index_past')->with('pastEvents', $pastEvents);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_upcoming()
+    {
+        $upcomingEvents = Event::orderBy('date_from','asc')->where('date_from', '>', now()->format('Y-m-d'))->paginate(9);
+        return view('events.index_upcoming')->with('upcomingEvents', $upcomingEvents);
     }
 
     /**

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Event;
 use App\Venue;
 use App\Ticket_user;
+use App\User;
+use App\User_role;
 
 class HomeController extends Controller
 {
@@ -81,5 +83,38 @@ class HomeController extends Controller
         }
         return view('home.venues')->with('venues',$venues);
         
+    }
+
+    /**
+     * Display an admin listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function users(Request $request)
+    {
+        $request->user()->authorizeRoles(['administrator']);
+        $users = User::orderBy('id','asc')->get();
+        $roles = User_role::orderBy('id','asc')->get();
+
+        return view('home.users')->with(['users' => $users, 'roles' => $roles]);
+    }
+
+    /**
+     * Display an admin listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function storeUserRoles(Request $request)
+    {
+        $request->user()->authorizeRoles(['administrator']);
+        //dd($request);
+        foreach( $request->get('user') as $id => $user ) {
+            if(array_key_exists( 'role', $user )) {
+               $usr = User::find( $id );
+               $usr->user_role_id = $user['role'];
+               $usr->save();
+            }
+          }
+          return redirect('/home/users')->with('success', 'Změny byly uloženy!');
     }
 }

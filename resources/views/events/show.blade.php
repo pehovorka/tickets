@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @if($event->date_to < now()->format('Y-m-d'))
+        <div class="alert alert-warning" role="alert">
+            Prohlížíte uplynulou akci.
+        </div>
+    @endif
     <div class="d-flex align-items-center">
         <h1 class="mr-4">{{$event->name}}</h1>
         @foreach ($event->event_category as $category)
@@ -21,6 +26,11 @@
 
     @if (count($event->ticket) > 0)
         <h3>Vstupenky</h3>
+        @if($event->date_to < now()->format('Y-m-d'))
+            <div class="alert alert-danger" role="alert">
+                Tato akce již proběhla, nelze zakoupit vstupenky!
+            </div>
+        @else
         @foreach ($event->ticket as $ticket)
         {{ Form::open(['action' => ['TicketsController@showOrder', $ticket->id], 'method' => 'POST']) }}
         <div class="card bg-secondary text-white mb-3">
@@ -54,6 +64,7 @@
               </div>
               {{ Form::close() }}
         @endforeach
+        @endif
     @endif
     @if ($event->venue)
         <div class="jumbotron bg-dark text-white p-0">
