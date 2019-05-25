@@ -14,12 +14,13 @@
 </div>
 @if(count($pastEvents)>0)
 <h2>Uplynulé akce</h2>
-@foreach ($pastEvents->chunk(3) as $events)
-<div class="row mb-3">
-    @foreach($events as $event)
-    @include('events.card_item') @endforeach
+<div class="row">
+    @foreach($pastEvents as $event)
+        @include('events.card_item')
+    @endforeach
 </div>
-@endforeach {{$pastEvents->links()}} @else
+{{$pastEvents->links()}} 
+@else
 <p>Žádné nadcházející akce</p>
 @endif @auth @if( Auth::user()->hasAnyRole(['administrator','manager']))
 <a href="/events/create" role="button" class="btn btn-primary">Přidat novou akci</a> @endif @endauth

@@ -1,4 +1,4 @@
-<div class="col-lg-4 d-flex align-items-stretch">
+<div class="col-lg-4 d-flex align-items-stretch mb-3">
     <a href="/events/{{$event->id}}">
         <div class="card">
             <img src="/storage/cover_images/{{$event->img}}" class="card-img-top" alt="{{$event->name}}">

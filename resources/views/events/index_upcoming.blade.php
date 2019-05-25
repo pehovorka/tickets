@@ -16,13 +16,11 @@
     </div>
     @if(count($upcomingEvents)>0)
         <h2>Nadcházející akce</h2>
-        @foreach ($upcomingEvents->chunk(3) as $events)
-            <div class="row mb-3">
-                @foreach($events as $event)
-                    @include('events.card_item')
-                @endforeach
-            </div>
-        @endforeach
+        <div class="row">
+            @foreach($upcomingEvents as $event)
+                @include('events.card_item')
+            @endforeach
+        </div>
         {{$upcomingEvents->links()}}
     @else
         <p>Žádné nadcházející akce</p>

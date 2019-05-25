@@ -16,24 +16,20 @@
     </div>
     @if(count($currentEvents)>0)
         <h2>Aktuální</h2>
-        @foreach ($currentEvents->chunk(3) as $events)
-            <div class="row mb-3">
-                @foreach($events as $event)
-                    @include('events.card_item')
-                @endforeach
-            </div>
-        @endforeach
+        <div class="row">
+            @foreach($currentEvents as $event)
+                @include('events.card_item')
+            @endforeach
+        </div>
     @endif
 
     @if(count($upcomingEvents)>0)
         <h2>Nadcházející</h2>
-        @foreach ($upcomingEvents->chunk(3) as $events)
-            <div class="row mb-3">
-                @foreach($events as $event)
+        <div class="row">
+                @foreach($upcomingEvents as $event)
                     @include('events.card_item')
                 @endforeach
             </div>
-        @endforeach
     @endif
     <a href="/events/upcoming" class="btn btn-secondary w-100">Zobrazit více nadcházejících akcí</a>
     
