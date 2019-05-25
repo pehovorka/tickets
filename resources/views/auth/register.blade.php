@@ -76,6 +76,12 @@
                         </div>
 
                         <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <input type="checkbox" name="checkbox" value="check" id="agree" required /> Souhlasím se <a href="/privacy-policy" target="_blank">zpracováním osobních údajů</a>.
+                                </div>
+                            </div>
+
+                        <div class="form-group row mb-0 mt-3">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register now') }}

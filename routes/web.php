@@ -11,8 +11,12 @@
 |
 */
 
+//Static and index pages
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
+Route::get('/privacy-policy', 'PagesController@privacy_policy');
+
+//Resources
 Route::resource('events', 'EventsController');
 Route::resource('venues', 'VenuesController');
 
