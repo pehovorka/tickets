@@ -13,7 +13,6 @@
 
 //Static and index pages
 Route::get('/', 'PagesController@index');
-Route::get('/about', 'PagesController@about');
 Route::get('/privacy-policy', 'PagesController@privacy_policy');
 
 //Events
@@ -49,7 +48,7 @@ Route::post('/home/users', 'HomeController@storeUserRoles');
 //Tickets
 Route::match(array('GET', 'POST'), '/tickets/buy/{ticket}', 'TicketsController@showOrder');
 Route::post('/tickets/store/{ticket_user}', 'TicketsController@store');
-Route::get('/tickets/show/{uuid}', 'TicketsController@show');
+Route::get('/tickets/show/{uuid}', 'TicketsController@show')->name('showTicket');
 Route::get('/tickets/validate/{uuid}', 'TicketsController@validateTicket')->name('validateTicket');
 Route::post('/tickets/use/', 'TicketsController@useTicket');
 

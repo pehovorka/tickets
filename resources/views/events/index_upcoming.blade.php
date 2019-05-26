@@ -15,7 +15,7 @@
         </div>
     </div>
     @if(count($upcomingEvents)>0)
-        <h2>Nadcházející akce</h2>
+        <h2>Nadcházející</h2>
         <div class="row">
             @foreach($upcomingEvents as $event)
                 @include('events.card_item')

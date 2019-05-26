@@ -31,10 +31,11 @@
                 @endforeach
             </div>
     @endif
-    <a href="/events/upcoming" class="btn btn-secondary w-100">Zobrazit více nadcházejících akcí</a>
+    <a href="/events/upcoming" class="btn btn-secondary w-100 mb-3">Zobrazit více nadcházejících akcí</a>
     
     @auth
     @if( Auth::user()->hasAnyRole(['administrator','manager']))
+        <hr>
         <a href="/events/create" role="button" class="btn btn-primary">Přidat novou akci</a>
     @endif
     @endauth

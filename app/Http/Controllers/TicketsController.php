@@ -8,6 +8,7 @@ use App\Ticket;
 use App\Payment_method;
 use App\Ticket_user;
 use App\Transaction;
+use App\Mail\TicketOrder;
 
 class TicketsController extends Controller
 {
@@ -55,12 +56,15 @@ class TicketsController extends Controller
         ]);
         $ticket = Ticket::find($id);
         $quantity = $request->input('quantityInput');
+        $user = auth()->user();
         
         //Transaction
         $transaction = new Transaction;
         $transaction->payment_method_id = $request->input('payment_method');
         $transaction->date = now();
         $transaction->save();
+
+        $sum_price = 0;
 
         //Ticket_user
         foreach(range(1,$quantity) as $index) {
@@ -73,21 +77,25 @@ class TicketsController extends Controller
             if(isset($ticket->event->venue)){
                 $ticket_user->original_venue_name = $ticket->event->venue->name;
             };
-            $ticket_user->original_user_first_name = auth()->user()->first_name;
-            $ticket_user->original_user_last_name = auth()->user()->last_name;
-            $ticket_user->original_user_email = auth()->user()->email;
+            $ticket_user->original_user_first_name = $user->first_name;
+            $ticket_user->original_user_last_name = $user->last_name;
+            $ticket_user->original_user_email = $user->email;
             //FK
             $ticket_user->ticket_id = $ticket->id;
             $ticket_user->event_id = $ticket->event->id;
             $ticket_user->transaction_id = $transaction->id;
-            $ticket_user->user_id = auth()->user()->id;
+            $ticket_user->user_id = $user->id;
             //User comment
             $ticket_user->user_comment =  $request->input('user_message');;
             //Save
             $ticket_user->save();
+
+            $sum_price += $ticket_user->original_price;
         }
 
-        return redirect('/home/tickets')->with('success', 'Děkujeme za nákup!');
+        \Mail::to($user->email)->send(new TicketOrder($transaction, $sum_price));
+        
+        return redirect('/home/tickets')->with('success', 'Děkujeme za nákup! Detaily vám byly odeslány na e-mail.');
     }
 
     /**

@@ -21,7 +21,7 @@
 </div>
 {{$pastEvents->links()}} 
 @else
-<p>Žádné nadcházející akce</p>
+<p>Žádné uplynulé akce</p>
 @endif @auth @if( Auth::user()->hasAnyRole(['administrator','manager']))
 <a href="/events/create" role="button" class="btn btn-primary">Přidat novou akci</a> @endif @endauth
 @endsection

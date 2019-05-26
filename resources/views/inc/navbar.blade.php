@@ -12,7 +12,6 @@
             <ul class="navbar-nav mr-auto">
                 <a class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">Domů</a>
                 <a class="nav-item nav-link {{ Request::is('events*') ? 'active' : '' }}" href="/events">Akce</a>
-                <a class="nav-item nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">O nás</a>
             </ul>
 
             <!-- Right Side Of Navbar -->

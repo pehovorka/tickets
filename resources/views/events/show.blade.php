@@ -107,16 +107,18 @@
     
     @auth
     @if(( Auth::user()->hasRole('manager') && Auth::user()->id == $event->user_id ) || Auth::user()->hasRole('administrator') )
-    <a href="/events/{{$event->id}}/edit" role="button" class="btn btn-default">Upravit akci</a>
-    {!!Form::open(['EventsController@destroy', $event->id, 'method' => 'POST', 'class' => 'float-right delete'])!!}
-        {{Form::hidden('_method','DELETE')}}
-        {{Form::submit('Smazat akci', ['class'=>'btn btn-danger'])}}
-    {!!Form::close() !!}
+    <div class="float-right">
+        <a href="/events/{{$event->id}}/edit" role="button" class="btn btn-primary">Upravit akci</a>
+        {!!Form::open(['EventsController@destroy', $event->id, 'method' => 'POST', 'class' => 'float-right delete'])!!}
+            {{Form::hidden('_method','DELETE')}}
+            {{Form::submit('Smazat akci', ['class'=>'btn btn-danger'])}}
+        {!!Form::close() !!}
+    </div>
 
 
     <script>
         $(".delete").on("submit", function(){
-            return confirm("Opravdu chcete tuto akci odstranit??");
+            return confirm("Opravdu chcete tuto akci odstranit?");
         });
     </script>
     @endif

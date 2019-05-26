@@ -29,7 +29,7 @@ class EventsController extends Controller
     public function index()
     {
         $currentEvents = Event::orderBy('date_to','asc')->where('date_to', '>=', now()->format('Y-m-d'))->where('date_from', '<=', now()->format('Y-m-d'))->get();
-        $upcomingEvents = Event::orderBy('date_from','asc')->where('date_from', '>', now()->format('Y-m-d'))->take(10)->get();
+        $upcomingEvents = Event::orderBy('date_from','asc')->where('date_from', '>', now()->format('Y-m-d'))->take(9)->get();
         return view('events.index')->with(['currentEvents' => $currentEvents, 'upcomingEvents' => $upcomingEvents]);
     }
 
