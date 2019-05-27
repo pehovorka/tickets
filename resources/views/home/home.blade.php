@@ -1,10 +1,10 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col">
             <div class="row">
-                <div class="card">
+                <div class="card w-100">
                     <div class="card-header">Hlavní panel</div>
 
                     <div class="card-body">
@@ -28,7 +28,7 @@
                             <div class="col-lg-4 mb-3">
                                 <div class="card text-center">
                                     <div class="card-body">
-                                            <i class="fas fa-calendar-alt fa-5x"></i>
+                                        <i class="fas fa-calendar-alt fa-5x"></i>
                                         <h5 class="card-title mt-3">Správa akcí</h5>
                                         <p class="card-text">Vytvářejte nové akce a upravujte již vytvořené.</p>
                                         <a href="/home/events" class="btn btn-primary">Přejít</a>

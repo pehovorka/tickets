@@ -50,7 +50,7 @@
     <a href="/events/create" role="button" class="btn btn-primary float-right">Přidat novou akci</a>
     <script>
         $(".delete").on("submit", function(){
-            return confirm("Opravdu chcete tuto akci odstranit??");
+            return confirm("Opravdu chcete tuto akci odstranit?");
         });
     </script>
 @endsection

@@ -134,7 +134,7 @@ class EventsController extends Controller
             }
         }
 
-        return redirect('/events')->with('success', 'Akce byla úspěšně přidána!');
+        return redirect('/events/'.$id)->with('success', 'Akce byla úspěšně přidána!');
     }
 
     /**
